@@ -1,0 +1,7 @@
+data/raw/
+data/*.parquet
+*.log
+__pycache__/
+*.pyc
+.token
+github_token*
