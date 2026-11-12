@@ -1,7 +1,21 @@
-data/raw/
-data/*.parquet
+# data: ignore everything except small transparency artifacts
+data/*
+!data/robustness.txt
+!data/analysis_real_summary.json
+
+# personal orchestration / infra (contains Slack channel + token paths) - never publish
+code/slack_pipeline.py
+code/pipeline.py
+code/run_pipeline.sh
+
+# secrets / tokens
+.token
+github_token*
+*slack*token*
+*.pem
+
+# noise
 *.log
 __pycache__/
 *.pyc
-.token
-github_token*
+.DS_Store

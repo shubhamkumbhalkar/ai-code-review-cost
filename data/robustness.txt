@@ -1,0 +1,27 @@
+==========================================================================
+ROBUSTNESS - revert finding (cohort merged first 16 days)
+==========================================================================
+cohort PRs: 1,571,703
+
+1) OVERALL two-proportion test
+   AI 0.423% (106/25035)  vs  non-AI 0.354% (5480/1546668)
+   diff = +0.069 pp  95% CI [-0.012, +0.150]  z=1.82  p=6.84e-02  not significant
+   -> CI includes zero
+
+2) SIZE-CONTROLLED (does AI>non survive within size bands?)
+   small<=50   AI 0.399% (n=6760) vs non 0.288% (n=766914) | diff +0.112pp [-0.04,+0.26] p=8.81e-02 ns
+   med51-300   AI 0.587% (n=6299) vs non 0.435% (n=388656) | diff +0.152pp [-0.04,+0.34] p=6.92e-02 ns
+   large>300   AI 0.351% (n=11976) vs non 0.405% (n=391098) | diff -0.054pp [-0.16,+0.05] p=3.58e-01 ns
+
+3) AUTHOR-CONTROLLED (top associations)
+   OWNER        AI 0.405% (n=12829) vs non 0.390% (n=483083) | diff +0.015pp p=7.89e-01 ns
+   CONTRIBUTOR  AI 0.401% (n=5493) vs non 0.289% (n=450007) | diff +0.111pp p=1.28e-01 ns
+   NONE         AI 0.446% (n=4034) vs non 0.329% (n=371590) | diff +0.117pp p=1.96e-01 ns
+   COLLABORATOR AI 0.758% (n=1451) vs non 0.401% (n=170477) | diff +0.357pp p=3.29e-02 SIG
+
+4) WITHIN-REPO sign test (repos with >=20 AI & >=20 non-AI)
+   powered repos: 40 | AI revert-rate higher in 5 (12%) | binomial p=0.000 SIG
+5) PERMUTATION / HYPERGEOMETRIC null (20,000 resamples)
+   observed AI reverts 106 vs null expected 89.0 (sd 9.4) = +1.80 sd
+   two-sided p = 0.070 -> NOT significant. Corroborates the z-test (p=0.068).
+   CONCLUSION: revert difference is within random noise. Downstream-quality result is a NULL.

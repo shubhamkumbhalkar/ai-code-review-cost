@@ -42,6 +42,8 @@ def commits(repo):
 
 def classify(message):
     """Return the set of AI tools detected in one commit message (empty = not AI-assisted)."""
+    if not message:
+        return set()
     return {name for name, rx in AI_PATTERNS.items() if rx.search(message)}
 
 
