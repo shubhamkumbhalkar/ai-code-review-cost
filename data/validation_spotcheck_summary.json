@@ -1,0 +1,53 @@
+{
+  "accessed_utc": "2026-11-19T21:23:02.990062+00:00",
+  "target": 10,
+  "input_manifest": {
+    "manifest_path": "gha_prs.csv.manifest.json",
+    "requested_hours": 156,
+    "completed_hours": 156,
+    "csv_bytes": 90923695,
+    "csv_sha256": "85b2e73df0c9f930dfd7024e6482277a0ae41cba6d7bae5bf0617b2394bf9f27"
+  },
+  "selection": {
+    "mode": "fixed_coordinates",
+    "coordinates_sha256": "cfa56f58b420ad704bcd2ffe227a3906914973e9373b126c5a74a9b943d2731e",
+    "description": "Balanced validation fixture selected from the final strict CSV for continued public availability and bounded commit-message checks; not an inferential random sample."
+  },
+  "target_by_group": {
+    "ai": 5,
+    "non_ai": 5
+  },
+  "immutable_fields": [
+    "merged_at",
+    "commits",
+    "pr_size",
+    "files_changed",
+    "author_type"
+  ],
+  "merge_time_snapshot_fields": [
+    "comments",
+    "review_comments"
+  ],
+  "checked_count": 10,
+  "unavailable_count": 0,
+  "records_with_mismatches": 0,
+  "records_with_post_merge_increases": 1,
+  "post_merge_increases_by_field": {
+    "comments": 1
+  },
+  "post_merge_increase_amounts_by_field": {
+    "comments": 2
+  },
+  "tagged_label_expected_counts": {
+    "claude": 2,
+    "copilot": 2,
+    "devin": 1
+  },
+  "tagged_label_detected_counts": {
+    "claude": 2,
+    "copilot": 2,
+    "devin": 1
+  },
+  "all_checked_fields_match": true,
+  "all_tagged_labels_match": true
+}

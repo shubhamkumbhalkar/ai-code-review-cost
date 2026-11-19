@@ -17,12 +17,25 @@ from collections import Counter
 
 # Each pattern is anchored to a trailer/footer form, not the bare vendor word.
 AI_PATTERNS = {
-    "claude": re.compile(r"co-authored-by:\s*claude\b|generated with\s*\[?claude code", re.I),
-    "copilot": re.compile(r"co-authored-by:\s*(github )?copilot\b", re.I),
+    "claude": re.compile(
+        r"co-authored-by:\s*claude[^\n<]*<noreply@anthropic\.com>"
+        r"|generated with\s*\[?claude code",
+        re.I,
+    ),
+    "copilot": re.compile(
+        r"co-authored-by:\s*(?:github )?copilot[^\n<]*<"
+        r"(?:(?:\d+\+)?copilot(?:\[bot\])?@users\.noreply\.github\.com|copilot@github\.com)>",
+        re.I,
+    ),
     "cursor": re.compile(r"co-authored-by:\s*cursor(agent)?\b", re.I),
-    "devin": re.compile(r"co-authored-by:\s*devin\b", re.I),
-    "aider": re.compile(r"co-authored-by:\s*aider\b", re.I),
-    "codex": re.compile(r"co-authored-by:\s*(openai )?codex\b", re.I),
+    "devin": re.compile(
+        r"co-authored-by:\s*devin[^\n<]*<"
+        r"\d+\+devin-ai-integration\[bot\]@users\.noreply\.github\.com>",
+        re.I,
+    ),
+    "codex": re.compile(
+        r"co-authored-by:\s*(?:openai )?codex[^\n<]*<codex@openai\.com>", re.I
+    ),
     "generic_agent": re.compile(r"co-authored-by:[^\n]*\b(bot|agent)@|🤖 generated", re.I),
 }
 
@@ -41,10 +54,14 @@ def commits(repo):
 
 
 def classify(message):
-    """Return the set of AI tools detected in one commit message (empty = not AI-assisted)."""
+    """Return only named assistant identities supported by explicit attribution."""
     if not message:
         return set()
-    return {name for name, rx in AI_PATTERNS.items() if rx.search(message)}
+    return {
+        name
+        for name, pattern in AI_PATTERNS.items()
+        if name != "generic_agent" and pattern.search(message)
+    }
 
 
 def analyze(repo):

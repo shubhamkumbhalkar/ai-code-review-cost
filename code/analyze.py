@@ -52,7 +52,7 @@ def mann_whitney(x, y):
     if sigma == 0:
         return U1, 1.0
     z = (U1 - mu) / sigma
-    p = 2 * (1 - 0.5 * (1 + math.erf(abs(z) / math.sqrt(2))))
+    p = math.erfc(abs(z) / math.sqrt(2))
     return U1, p
 
 

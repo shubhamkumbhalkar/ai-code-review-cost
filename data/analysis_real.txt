@@ -1,0 +1,69 @@
+==============================================================================
+CHECKPOINT 3 - REAL DATA (GH Archive, Oct 2024 - Sep 2025)
+==============================================================================
+rows total 730,671 | linkable 660,215 | bot-authored excluded 195,032 | unknown author type excluded 0 | human-authored analyzed 465,183
+AI 1,113 | non-AI 464,070 | distinct repos 220,261
+AI tools: {'claude': 485, 'copilot': 419, 'cursor': 198, 'devin': 14}
+tool sensitivity: {'claude': {'tagged_pull_requests': 485, 'metrics': {'time_to_merge_h': {'n_ai': 485, 'median_ai': 0.328, 'median_non_ai': 0.066, 'cliffs_delta': 0.1766531711022088}, 'pr_size': {'n_ai': 485, 'median_ai': 480.0, 'median_non_ai': 62.0, 'cliffs_delta': 0.4359862347464023}, 'review_rounds': {'n_ai': 380, 'median_ai': 0.0, 'median_non_ai': 0.0, 'cliffs_delta': -0.11928420018912778}}}, 'copilot': {'tagged_pull_requests': 419, 'metrics': {'time_to_merge_h': {'n_ai': 419, 'median_ai': 0.846, 'median_non_ai': 0.066, 'cliffs_delta': 0.35588633062054}, 'pr_size': {'n_ai': 419, 'median_ai': 199.0, 'median_non_ai': 62.0, 'cliffs_delta': 0.2843955779241394}, 'review_rounds': {'n_ai': 264, 'median_ai': 0.0, 'median_non_ai': 0.0, 'cliffs_delta': -0.002888518403475482}}}, 'cursor': {'tagged_pull_requests': 198, 'metrics': {'time_to_merge_h': {'n_ai': 198, 'median_ai': 0.058, 'median_non_ai': 0.066, 'cliffs_delta': -0.03400414383671224}, 'pr_size': {'n_ai': 198, 'median_ai': 283.0, 'median_non_ai': 62.0, 'cliffs_delta': 0.3415905994676438}, 'review_rounds': {'n_ai': 179, 'median_ai': 0.0, 'median_non_ai': 0.0, 'cliffs_delta': -0.13472907566525738}}}}
+monthly coverage: {'2024-10': {'rows': 78949, 'linkable': 74889, 'linkable_pct': 94.85743961291466, 'bot_authored': 17119, 'unknown_author_type': 0}, '2024-11': {'rows': 68009, 'linkable': 64743, 'linkable_pct': 95.19769442279699, 'bot_authored': 15115, 'unknown_author_type': 0}, '2024-12': {'rows': 42424, 'linkable': 41978, 'linkable_pct': 98.94870827833302, 'bot_authored': 11520, 'unknown_author_type': 0}, '2025-01': {'rows': 80259, 'linkable': 76989, 'linkable_pct': 95.92569057675775, 'bot_authored': 23946, 'unknown_author_type': 0}, '2025-02': {'rows': 48165, 'linkable': 47505, 'linkable_pct': 98.62971037060106, 'bot_authored': 15228, 'unknown_author_type': 0}, '2025-03': {'rows': 48974, 'linkable': 48202, 'linkable_pct': 98.42365336709274, 'bot_authored': 14975, 'unknown_author_type': 0}, '2025-04': {'rows': 84893, 'linkable': 79247, 'linkable_pct': 93.3492749696677, 'bot_authored': 23901, 'unknown_author_type': 0}, '2025-05': {'rows': 79823, 'linkable': 73906, 'linkable_pct': 92.58734951079263, 'bot_authored': 19722, 'unknown_author_type': 0}, '2025-06': {'rows': 38537, 'linkable': 33881, 'linkable_pct': 87.91810467862055, 'bot_authored': 8724, 'unknown_author_type': 0}, '2025-07': {'rows': 57360, 'linkable': 44365, 'linkable_pct': 77.34483960948396, 'bot_authored': 15316, 'unknown_author_type': 0}, '2025-08': {'rows': 53139, 'linkable': 42366, 'linkable_pct': 79.72675436120363, 'bot_authored': 15801, 'unknown_author_type': 0}, '2025-09': {'rows': 50139, 'linkable': 32144, 'linkable_pct': 64.10977482598376, 'bot_authored': 13665, 'unknown_author_type': 0}}
+contained review subset 345,010 | AI 826 | non-AI 344,184
+
+--- CONFOUNDER CHECK ---
+median PR size:  AI 292  vs  non-AI 62
+median commits:  AI 3  vs  non-AI 1
+  author_assoc AI: OWNER 60%, CONTRIBUTOR 17%, COLLABORATOR 12%, MEMBER 9%
+  author_assoc non-AI: OWNER 38%, CONTRIBUTOR 25%, COLLABORATOR 22%, MEMBER 9%
+  AI PRs concentrate in later months (top: {'2025-08': 27.9, '2025-07': 23.2, '2025-06': 16.5})
+
+--- OVERALL (uncontrolled), per metric, BH-corrected ---
+  time_to_merge_h   n=1,113/464,070 | AI med     0.308 | non med     0.066 | delta +0.210 [+0.184,+0.232] small      p_adj 1.16683e-33 SIG
+  review_latency_h  n=45/48,248 | AI med     0.373 | non med     0.233 | delta +0.190 [+0.057,+0.321] small      p_adj 0.0274033 SIG
+  review_rounds     n=826/344,184 | AI med     0.000 | non med     0.000 | delta -0.086 [-0.101,-0.071] negligible p_adj 1.86584e-12 SIG
+  commits           n=1,113/464,070 | AI med     3.000 | non med     1.000 | delta +0.337 [+0.308,+0.369] medium     p_adj 3.43369e-99 SIG
+  pr_size           n=1,113/464,070 | AI med   292.000 | non med    62.000 | delta +0.360 [+0.331,+0.387] medium     p_adj 2.3927e-95 SIG
+  files_changed     n=1,113/464,070 | AI med     6.000 | non med     3.000 | delta +0.236 [+0.204,+0.265] small      p_adj 1.83266e-43 SIG
+  comments          n=1,113/464,070 | AI med     0.000 | non med     0.000 | delta +0.208 [+0.178,+0.239] small      p_adj 8.06281e-56 SIG
+  review_comments   n=1,113/464,070 | AI med     0.000 | non med     0.000 | delta +0.346 [+0.319,+0.377] medium     p_adj 0 SIG
+
+--- FORMAL REVIEW COVERAGE (contained subset) ---
+  AI 45/826 (5.4%) | non-AI 48,248/344,184 (14.0%)
+  difference -8.570 pp | Newcombe unclustered 95% CI [-9.927, -6.802] | pooled p=1.33644e-12
+  repository-clustered difference -8.570 pp | 95% CI [-10.355, -6.785] | p=4.91377e-21 | repositories 178,049
+  repository-stratified difference -6.475 pp | Sato 95% CI [-10.117, -2.834] | CMH p=0.000436496 | repositories 238 | tagged retained 311 (37.7%)
+  repository+covariate-stratified difference -3.422 pp | Sato 95% CI [-8.520, +1.677] | CMH p=0.178841 | strata 121 | tagged retained 140 (16.9%)
+  tagged repositories 644 | effective tagged clusters 481.8 | top-5 tagged share 3.6%
+  standardized by size               -6.782 pp | clustered 95% CI [-8.486, -5.078] | tagged retained 826 (100.0%)
+  standardized by month              -3.814 pp | clustered 95% CI [-5.493, -2.134] | tagged retained 826 (100.0%)
+  standardized by author_association -3.409 pp | clustered 95% CI [-5.185, -1.633] | tagged retained 826 (100.0%)
+  standardized by joint              -0.724 pp | clustered 95% CI [-2.342, +0.894] | tagged retained 826 (100.0%)
+  leave out top_1          difference -8.510 pp | clustered 95% CI [-10.309, -6.712] | MH -6.475 pp
+  leave out top_2          difference -8.530 pp | clustered 95% CI [-10.325, -6.736] | MH -6.506 pp
+  leave out top_3          difference -8.537 pp | clustered 95% CI [-10.330, -6.744] | MH -6.475 pp
+  leave out top_4          difference -8.537 pp | clustered 95% CI [-10.330, -6.744] | MH -6.506 pp
+  leave out top_5          difference -8.537 pp | clustered 95% CI [-10.330, -6.744] | MH -6.475 pp
+  leave out top_5_together difference -8.365 pp | clustered 95% CI [-10.200, -6.530] | MH -6.537 pp
+
+--- WITHIN-REPO (each repo its own control; repos with >=5 AI & >=5 non-AI) ---
+  time_to_merge_h   repos=  2 | median per-repo (AI-nonAI) = +29.494 | AI lower in 0% | ties 0%
+  review_latency_h  too few repos with both groups >=5
+  review_rounds     repos=  1 | median per-repo (AI-nonAI) = +0.000 | AI lower in 0% | ties 100%
+  comments          repos=  2 | median per-repo (AI-nonAI) = +0.500 | AI lower in 0% | ties 50%
+
+--- PAIRED-REPOSITORY SENSITIVITY (>=1 observation per group) ---
+  time_to_merge_h   repos= 381 | median diff +0.045 | 95% CI [+0.009,+0.087] | higher/lower/ties 221/155/5 | sign p=0.00077997
+  review_latency_h  repos=  25 | median diff +0.005 | 95% CI [-0.259,+0.419] | higher/lower/ties 13/12/0 | sign p=1
+  review_rounds     repos= 238 | median diff +0.000 | 95% CI [+0.000,+0.000] | higher/lower/ties 12/27/199 | sign p=0.0237027
+  commits           repos= 381 | median diff +1.000 | 95% CI [+1.000,+1.000] | higher/lower/ties 236/80/65 | sign p=5.14668e-19
+  pr_size           repos= 381 | median diff +37.000 | 95% CI [+14.000,+79.000] | higher/lower/ties 222/157/2 | sign p=0.000985543
+  files_changed     repos= 381 | median diff +0.500 | 95% CI [+0.000,+1.000] | higher/lower/ties 193/143/45 | sign p=0.00742239
+  comments          repos= 381 | median diff +0.000 | 95% CI [+0.000,+0.000] | higher/lower/ties 89/52/240 | sign p=0.00231311
+  review_comments   repos= 381 | median diff +0.500 | 95% CI [+0.000,+1.000] | higher/lower/ties 195/45/141 | sign p=1.92321e-23
+
+--- SIZE-STRATIFIED time_to_merge_h ---
+  small<=50   AI med     0.12 (n=248) | non med     0.05 (n=216430) | delta +0.168 small      p 4.478e-06
+  med51-300   AI med     0.25 (n=316) | non med     0.09 (n=127885) | delta +0.132 negligible p 4.803e-05
+  large>300   AI med     0.68 (n=549) | non med     0.08 (n=119755) | delta +0.220 small      p 4.978e-19
+
+--- MONTH-MATCHED time_to_merge_h (controls temporal confounder) ---
+  months=7 | median per-month (AI-nonAI) = +0.297h | AI higher 7 | lower 0 | ties 0
+  AI counts by month: {'2024-10': 0, '2024-11': 2, '2024-12': 4, '2025-01': 6, '2025-02': 2, '2025-03': 12, '2025-04': 71, '2025-05': 106, '2025-06': 184, '2025-07': 258, '2025-08': 310, '2025-09': 158}

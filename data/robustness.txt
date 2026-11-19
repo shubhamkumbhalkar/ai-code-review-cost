@@ -1,27 +1,41 @@
-==========================================================================
-ROBUSTNESS - revert finding (cohort merged first 16 days)
-==========================================================================
-cohort PRs: 1,571,703
+==============================================================================
+REVERT ANALYSIS - LINKABLE PULL REQUESTS WITH A FIXED 14-DAY OUTCOME WINDOW
+==============================================================================
+window: 2025-08-01T00:00:00+00:00 to 2025-08-31T00:00:00+00:00 (end exclusive)
+cohort cutoff: 2025-08-17T00:00:00+00:00 (end exclusive)
+rows total: 2,923,316
+linkable rows: 2,435,960
+cohort rows: 809,803
 
-1) OVERALL two-proportion test
-   AI 0.423% (106/25035)  vs  non-AI 0.354% (5480/1546668)
-   diff = +0.069 pp  95% CI [-0.012, +0.150]  z=1.82  p=6.84e-02  not significant
-   -> CI includes zero
+1) OVERALL TWO-PROPORTION COMPARISON
+   AI 0.363% (46/12689) vs non-AI 0.277% (2211/797114)
+   difference +0.085 pp | 95% CI [-0.006, +0.206] | z=1.80 | p=0.071084
 
-2) SIZE-CONTROLLED (does AI>non survive within size bands?)
-   small<=50   AI 0.399% (n=6760) vs non 0.288% (n=766914) | diff +0.112pp [-0.04,+0.26] p=8.81e-02 ns
-   med51-300   AI 0.587% (n=6299) vs non 0.435% (n=388656) | diff +0.152pp [-0.04,+0.34] p=6.92e-02 ns
-   large>300   AI 0.351% (n=11976) vs non 0.405% (n=391098) | diff -0.054pp [-0.16,+0.05] p=3.58e-01 ns
+2) SIZE STRATA
+   small<=50   difference +0.317 pp | AI 14/2486 | non-AI 868/352669 | p=0.001552
+   med51-300   difference +0.085 pp | AI 13/3296 | non-AI 700/225990 | p=0.386077
+   large>300   difference -0.019 pp | AI 19/6907 | non-AI 643/218455 | p=0.770938
+   standardized to non-AI size mix: +0.159 pp
 
-3) AUTHOR-CONTROLLED (top associations)
-   OWNER        AI 0.405% (n=12829) vs non 0.390% (n=483083) | diff +0.015pp p=7.89e-01 ns
-   CONTRIBUTOR  AI 0.401% (n=5493) vs non 0.289% (n=450007) | diff +0.111pp p=1.28e-01 ns
-   NONE         AI 0.446% (n=4034) vs non 0.329% (n=371590) | diff +0.117pp p=1.96e-01 ns
-   COLLABORATOR AI 0.758% (n=1451) vs non 0.401% (n=170477) | diff +0.357pp p=3.29e-02 SIG
+3) AUTHOR ASSOCIATION STRATA (BH corrected across reported groups)
+   OWNER          difference +0.047 pp | p=0.436531 | p_adj=0.483966
+   CONTRIBUTOR    difference +0.194 pp | p=0.104535 | p_adj=0.261338
+   COLLABORATOR   difference +0.108 pp | p=0.483966 | p_adj=0.483966
+   MEMBER         difference -0.205 pp | p=0.201035 | p_adj=0.335058
+   NONE           difference +0.756 pp | p=0.063619 | p_adj=0.261338
 
-4) WITHIN-REPO sign test (repos with >=20 AI & >=20 non-AI)
-   powered repos: 40 | AI revert-rate higher in 5 (12%) | binomial p=0.000 SIG
-5) PERMUTATION / HYPERGEOMETRIC null (20,000 resamples)
-   observed AI reverts 106 vs null expected 89.0 (sd 9.4) = +1.80 sd
-   two-sided p = 0.070 -> NOT significant. Corroborates the z-test (p=0.068).
-   CONCLUSION: revert difference is within random noise. Downstream-quality result is a NULL.
+4) WITHIN-REPOSITORY SIGN TEST
+   eligible 6 | higher 1 | lower 1 | ties excluded 4 | exact p=1.000000
+
+5) HYPERGEOMETRIC RANDOM-LABEL SENSITIVITY
+   observed 46 | expected 35.4 | sd 5.93 | p=0.078746 | draws 20,000
+
+6) REPOSITORY-CLUSTERED SANDWICH INFERENCE
+   difference +0.085 pp | clustered SE 0.066 pp | 95% CI [-0.044, +0.215] | p=0.197872 | repositories 249,519
+
+7) LINKABILITY AND STRICT TAG SHARE BY MERGE WEEK
+   week 1 rows 684,821 | linkable 84.1% | User linkable 360,990 | strict AI 1.544%
+   week 2 rows 701,971 | linkable 82.4% | User linkable 351,203 | strict AI 1.596%
+   week 3 rows 681,549 | linkable 83.0% | User linkable 350,602 | strict AI 1.432%
+   week 4 rows 682,061 | linkable 82.8% | User linkable 356,911 | strict AI 1.275%
+   week 5 rows 172,914 | linkable 87.4% | User linkable 98,612 | strict AI 1.412%

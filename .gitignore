@@ -1,7 +1,12 @@
 # data: ignore everything except small transparency artifacts
 data/*
-!data/robustness.txt
+!data/analysis_real.txt
 !data/analysis_real_summary.json
+!data/robustness.txt
+!data/robustness_summary.json
+!data/gha_prs.csv.manifest.json
+!data/gha_reverts.csv.manifest.json
+!data/validation_spotcheck_summary.json
 
 # personal orchestration / infra (contains Slack channel + token paths) - never publish
 code/slack_pipeline.py
@@ -15,6 +20,8 @@ github_token*
 *.pem
 
 # noise
+figures/archive/
+.venv/
 *.log
 __pycache__/
 *.pyc

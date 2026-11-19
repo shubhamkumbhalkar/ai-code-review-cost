@@ -8,11 +8,11 @@ Per contiguous window of hours we extract three real streams and join them:
   - PullRequestReviewEvents  -> real review submissions (latency, rounds)
   - PushEvent commits        -> strict AI-trailer detection (detect_ai_commits) -> AI-commit SHA set
 
-AI flag per PR: 1 if the PR's head_sha or merge_commit_sha is in the AI-commit SHA set.
-Linkability is measured honestly: a PR is "linkable" only if its head_sha was seen in ANY push in
-the window. PRs that are not linkable are reported and EXCLUDED from the AI-vs-non-AI comparison
-(never silently defaulted to non-AI). This, and the contiguous-window containment, are stated as
-limitations.
+AI flag per PR: the head SHA has assistant evidence no later than merge, or the merge SHA has evidence
+within one hour after merge to allow GitHub event sequencing. The same timing rule defines linkability.
+Formal-review metrics use deduplicated pre-merge reviews from non-author users whose type is not Bot.
+All-review counts remain as diagnostics. Unlinkable PRs are excluded from analysis rather than silently
+classified as non-AI.
 
 Usage: python3 code/gharchive_collect.py --start 2025-09-15-10 --hours 6 --out data/gha_val.csv
 """
@@ -29,9 +29,14 @@ from pathlib import Path
 import detect_ai_commits as det
 
 ROOT = Path(__file__).resolve().parent.parent
-COLS = ["repo", "pr", "is_ai", "linkable", "time_to_merge_h", "review_latency_h", "review_rounds",
-        "commits", "pr_size", "files_changed", "comments", "review_comments", "author_assoc",
-        "created_at", "merged_at"]
+COLS = [
+    "repo", "pr", "is_ai", "ai_tools", "linkable", "author_type",
+    "time_to_merge_h", "review_latency_h", "review_rounds",
+    "all_review_latency_h", "all_review_rounds", "commits", "pr_size",
+    "files_changed", "comments", "review_comments", "author_assoc",
+    "created_at", "merged_at",
+]
+MERGE_PUSH_GRACE = dt.timedelta(hours=1)
 
 
 def _fmt(t):
@@ -48,81 +53,199 @@ def _hours(a, b):
         return None
 
 
-def collect(hour_keys):
+def collect(hour_keys, analysis_hour_keys=None):
+    analysis_hour_keys = set(hour_keys if analysis_hour_keys is None else analysis_hour_keys)
     prs = {}            # (repo,num) -> pr record
-    reviews = {}        # (repo,num) -> [submitted_at,...]
-    ai_shas = set()
-    all_push_shas = set()
+    reviews = {}        # (repo,num) -> review id -> review record
+    ai_shas = {}        # commit SHA -> detected tools and earliest observation
+    all_push_shas = {}  # commit SHA -> earliest observation
+    hour_records = []
     for hk in hour_keys:
         url = f"https://data.gharchive.org/{hk}.json.gz"
         with tempfile.NamedTemporaryFile(suffix=".json.gz", delete=False) as tf:
             path = tf.name
         try:
-            r = subprocess.run(["curl", "-s", "-o", path, "--max-time", "180", url],
-                               capture_output=True)
-            if r.returncode != 0 or os.path.getsize(path) < 1_000_000:
-                print(f"  {hk}: download small/failed ({os.path.getsize(path)} B) - skip")
-                continue
-            n = 0
-            with gzip.open(path) as f:
-                for line in f:
+            result = subprocess.run(
+                [
+                    "curl", "-sfL", "--retry", "3", "--retry-delay", "2",
+                    "-o", path, "--max-time", "300", url,
+                ],
+                capture_output=True,
+                text=True,
+            )
+            size = os.path.getsize(path)
+            if result.returncode != 0:
+                raise RuntimeError(f"download failed for {hk}: {result.stderr.strip()}")
+            if size < 1_000_000:
+                raise RuntimeError(f"archive too small for {hk}: {size} bytes")
+            event_count = 0
+            with gzip.open(path) as archive:
+                for line in archive:
                     try:
-                        e = json.loads(line)
-                    except Exception:
-                        continue
-                    t = e.get("type"); repo = e.get("repo", {}).get("name")
-                    if t == "PullRequestEvent":
-                        pl = e["payload"]
-                        if pl.get("action") == "closed" and pl["pull_request"].get("merged"):
-                            p = pl["pull_request"]; key = (repo, p["number"])
+                        event = json.loads(line)
+                    except Exception as error:
+                        raise RuntimeError(
+                            f"invalid JSON in {hk} at event {event_count + 1}: {error}"
+                        ) from error
+                    event_count += 1
+                    event_type = event.get("type")
+                    repo = event.get("repo", {}).get("name")
+                    if event_type == "PullRequestEvent" and hk in analysis_hour_keys:
+                        payload = event["payload"]
+                        if payload.get("action") == "closed" and payload["pull_request"].get("merged"):
+                            pull_request = payload["pull_request"]
+                            key = (repo, pull_request["number"])
                             prs[key] = {
-                                "repo": repo, "pr": p["number"],
-                                "created_at": p.get("created_at"), "merged_at": p.get("merged_at"),
-                                "commits": p.get("commits"), "pr_size": (p.get("additions", 0) + p.get("deletions", 0)),
-                                "files_changed": p.get("changed_files"), "comments": p.get("comments"),
-                                "review_comments": p.get("review_comments"),
-                                "author_assoc": p.get("author_association"),
-                                "head_sha": (p.get("head") or {}).get("sha"),
-                                "merge_sha": p.get("merge_commit_sha"),
+                                "repo": repo,
+                                "pr": pull_request["number"],
+                                "created_at": pull_request.get("created_at"),
+                                "merged_at": pull_request.get("merged_at"),
+                                "commits": pull_request.get("commits"),
+                                "pr_size": pull_request.get("additions", 0) + pull_request.get("deletions", 0),
+                                "files_changed": pull_request.get("changed_files"),
+                                "comments": pull_request.get("comments"),
+                                "review_comments": pull_request.get("review_comments"),
+                                "author_assoc": pull_request.get("author_association"),
+                                "author_login": (pull_request.get("user") or {}).get("login"),
+                                "author_type": (pull_request.get("user") or {}).get("type"),
+                                "head_sha": (pull_request.get("head") or {}).get("sha"),
+                                "merge_sha": pull_request.get("merge_commit_sha"),
                             }
-                    elif t == "PullRequestReviewEvent":
-                        pl = e["payload"]; p = pl.get("pull_request", {})
-                        key = (repo, p.get("number"))
-                        sub = (pl.get("review") or {}).get("submitted_at")
-                        if sub:
-                            reviews.setdefault(key, []).append(sub)
-                    elif t == "PushEvent":
-                        for c in e["payload"].get("commits", []):
-                            sha = c.get("sha")
+                    elif event_type == "PullRequestReviewEvent" and hk in analysis_hour_keys:
+                        payload = event["payload"]
+                        pull_request = payload.get("pull_request", {})
+                        key = (repo, pull_request.get("number"))
+                        review = payload.get("review") or {}
+                        submitted = review.get("submitted_at")
+                        if submitted:
+                            reviewer = review.get("user") or {}
+                            review_id = review.get("id") or review.get("node_id") or (
+                                submitted,
+                                reviewer.get("login"),
+                                review.get("state"),
+                            )
+                            reviews.setdefault(key, {})[review_id] = {
+                                "submitted_at": submitted,
+                                "reviewer_login": reviewer.get("login"),
+                                "reviewer_type": reviewer.get("type"),
+                            }
+                    elif event_type == "PushEvent":
+                        payload = event["payload"]
+                        event_time = dt.datetime.fromisoformat(
+                            event["created_at"].replace("Z", "+00:00")
+                        )
+                        listed_shas = set()
+                        for commit in payload.get("commits", []):
+                            sha = commit.get("sha")
                             if sha:
-                                all_push_shas.add(sha)
-                                if det.classify(c.get("message") or ""):
-                                    ai_shas.add(sha)
-                    n += 1
-            print(f"  {hk}: {n} events | merged PRs so far {len(prs)} | AI shas {len(ai_shas)}")
+                                listed_shas.add(sha)
+                                observed = all_push_shas.get(sha)
+                                if observed is None or event_time < observed:
+                                    all_push_shas[sha] = event_time
+                                tools = det.classify(commit.get("message") or "")
+                                if tools:
+                                    evidence = ai_shas.setdefault(
+                                        sha, {"observed_at": event_time, "tools": set()}
+                                    )
+                                    evidence["observed_at"] = min(
+                                        evidence["observed_at"], event_time
+                                    )
+                                    evidence["tools"].update(tools)
+                        payload_head = payload.get("head")
+                        if payload_head and payload_head not in listed_shas:
+                            observed = all_push_shas.get(payload_head)
+                            if observed is None or event_time < observed:
+                                all_push_shas[payload_head] = event_time
+            hour_records.append({"hour": hk, "bytes": size, "events": event_count})
+            print(
+                f"  {hk}: {event_count} events | merged PRs so far {len(prs)} | "
+                f"AI shas {len(ai_shas)}",
+                flush=True,
+            )
         finally:
-            try: os.remove(path)
-            except OSError: pass
-    return prs, reviews, ai_shas, all_push_shas
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+    return prs, reviews, ai_shas, all_push_shas, hour_records
 
 
 def build_rows(prs, reviews, ai_shas, all_push_shas):
     rows = []
-    for key, p in prs.items():
-        heads = [s for s in (p.get("head_sha"), p.get("merge_sha")) if s]
-        linkable = any(s in all_push_shas for s in heads)
-        is_ai = 1 if any(s in ai_shas for s in heads) else 0
-        revs = sorted(reviews.get(key, []))
-        lat = _hours(p["created_at"], revs[0]) if revs and p.get("created_at") else ""
+    for key, pull_request in prs.items():
+        head_sha = pull_request.get("head_sha")
+        merge_sha = pull_request.get("merge_sha")
+        merged_at = pull_request.get("merged_at")
+        merged_time = (
+            dt.datetime.fromisoformat(merged_at.replace("Z", "+00:00")) if merged_at else None
+        )
+
+        def evidence_allowed(sha, evidence, grace=dt.timedelta(0)):
+            if not sha or sha not in evidence:
+                return False
+            observed = evidence[sha]
+            if isinstance(observed, dict):
+                observed = observed["observed_at"]
+            return merged_time is None or observed <= merged_time + grace
+
+        linkable = evidence_allowed(head_sha, all_push_shas) or evidence_allowed(
+            merge_sha, all_push_shas, MERGE_PUSH_GRACE
+        )
+        tools = sorted({
+            tool
+            for sha, grace in (
+                (head_sha, dt.timedelta(0)),
+                (merge_sha, MERGE_PUSH_GRACE),
+            )
+            if evidence_allowed(sha, ai_shas, grace)
+            for tool in ai_shas[sha]["tools"]
+        })
+        created_time = dt.datetime.fromisoformat(
+            pull_request["created_at"].replace("Z", "+00:00")
+        )
+        all_reviews = []
+        for review in reviews.get(key, {}).values():
+            submitted = dt.datetime.fromisoformat(
+                review["submitted_at"].replace("Z", "+00:00")
+            )
+            if (merged_time is None or submitted <= merged_time) and submitted >= created_time:
+                all_reviews.append((submitted, review))
+        all_reviews.sort(key=lambda item: item[0])
+        author_login = (pull_request.get("author_login") or "").casefold()
+        human_reviews = [
+            item
+            for item in all_reviews
+            if item[1].get("reviewer_login")
+            and (item[1].get("reviewer_type") or "").casefold() != "bot"
+            and item[1]["reviewer_login"].casefold() != author_login
+        ]
+        first_human_review = human_reviews[0][1]["submitted_at"] if human_reviews else None
+        first_any_review = all_reviews[0][1]["submitted_at"] if all_reviews else None
         rows.append({
-            "repo": p["repo"], "pr": p["pr"],
-            "is_ai": is_ai, "linkable": int(linkable),
-            "time_to_merge_h": _hours(p["created_at"], p["merged_at"]),
-            "review_latency_h": lat, "review_rounds": len(revs),
-            "commits": p.get("commits"), "pr_size": p.get("pr_size"),
-            "files_changed": p.get("files_changed"), "comments": p.get("comments"),
-            "review_comments": p.get("review_comments"), "author_assoc": p.get("author_assoc"),
-            "created_at": p.get("created_at"), "merged_at": p.get("merged_at"),
+            "repo": pull_request["repo"],
+            "pr": pull_request["pr"],
+            "is_ai": int(bool(tools)),
+            "ai_tools": ",".join(tools),
+            "linkable": int(linkable),
+            "author_type": pull_request.get("author_type") or "",
+            "time_to_merge_h": _hours(pull_request["created_at"], merged_at),
+            "review_latency_h": (
+                _hours(pull_request["created_at"], first_human_review)
+                if first_human_review else ""
+            ),
+            "review_rounds": len(human_reviews),
+            "all_review_latency_h": (
+                _hours(pull_request["created_at"], first_any_review) if first_any_review else ""
+            ),
+            "all_review_rounds": len(all_reviews),
+            "commits": pull_request.get("commits"),
+            "pr_size": pull_request.get("pr_size"),
+            "files_changed": pull_request.get("files_changed"),
+            "comments": pull_request.get("comments"),
+            "review_comments": pull_request.get("review_comments"),
+            "author_assoc": pull_request.get("author_assoc"),
+            "created_at": pull_request.get("created_at"),
+            "merged_at": merged_at,
         })
     return rows
 
@@ -135,7 +258,7 @@ def main():
     args = ap.parse_args()
     keys = [_fmt(dt.datetime.strptime(args.start, "%Y-%m-%d-%H") + dt.timedelta(hours=i)) for i in range(args.hours)]
     print(f"window: {keys[0]} .. {keys[-1]} ({len(keys)} hours)")
-    prs, reviews, ai_shas, all_push = collect(keys)
+    prs, reviews, ai_shas, all_push, _hour_records = collect(keys)
     rows = build_rows(prs, reviews, ai_shas, all_push)
     out = ROOT / args.out
     out.parent.mkdir(exist_ok=True)

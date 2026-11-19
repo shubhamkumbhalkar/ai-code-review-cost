@@ -1,7 +1,1682 @@
 {
   "rows_total": 730671,
-  "linkable": 659775,
-  "ai": 3243,
-  "non_ai": 656532,
-  "repos": 289181
+  "linkable": 660215,
+  "bot_authored_excluded": 195032,
+  "unknown_author_type_excluded": 0,
+  "human_authored_analyzed": 465183,
+  "ai": 1113,
+  "non_ai": 464070,
+  "ai_tools": {
+    "copilot": 419,
+    "devin": 14,
+    "claude": 485,
+    "cursor": 198
+  },
+  "tool_sensitivity": {
+    "claude": {
+      "tagged_pull_requests": 485,
+      "metrics": {
+        "time_to_merge_h": {
+          "n_ai": 485,
+          "median_ai": 0.328,
+          "median_non_ai": 0.066,
+          "cliffs_delta": 0.1766531711022088
+        },
+        "pr_size": {
+          "n_ai": 485,
+          "median_ai": 480.0,
+          "median_non_ai": 62.0,
+          "cliffs_delta": 0.4359862347464023
+        },
+        "review_rounds": {
+          "n_ai": 380,
+          "median_ai": 0.0,
+          "median_non_ai": 0.0,
+          "cliffs_delta": -0.11928420018912778
+        }
+      }
+    },
+    "copilot": {
+      "tagged_pull_requests": 419,
+      "metrics": {
+        "time_to_merge_h": {
+          "n_ai": 419,
+          "median_ai": 0.846,
+          "median_non_ai": 0.066,
+          "cliffs_delta": 0.35588633062054
+        },
+        "pr_size": {
+          "n_ai": 419,
+          "median_ai": 199.0,
+          "median_non_ai": 62.0,
+          "cliffs_delta": 0.2843955779241394
+        },
+        "review_rounds": {
+          "n_ai": 264,
+          "median_ai": 0.0,
+          "median_non_ai": 0.0,
+          "cliffs_delta": -0.002888518403475482
+        }
+      }
+    },
+    "cursor": {
+      "tagged_pull_requests": 198,
+      "metrics": {
+        "time_to_merge_h": {
+          "n_ai": 198,
+          "median_ai": 0.058,
+          "median_non_ai": 0.066,
+          "cliffs_delta": -0.03400414383671224
+        },
+        "pr_size": {
+          "n_ai": 198,
+          "median_ai": 283.0,
+          "median_non_ai": 62.0,
+          "cliffs_delta": 0.3415905994676438
+        },
+        "review_rounds": {
+          "n_ai": 179,
+          "median_ai": 0.0,
+          "median_non_ai": 0.0,
+          "cliffs_delta": -0.13472907566525738
+        }
+      }
+    }
+  },
+  "monthly_coverage": {
+    "2024-10": {
+      "rows": 78949,
+      "linkable": 74889,
+      "linkable_pct": 94.85743961291466,
+      "bot_authored": 17119,
+      "unknown_author_type": 0
+    },
+    "2024-11": {
+      "rows": 68009,
+      "linkable": 64743,
+      "linkable_pct": 95.19769442279699,
+      "bot_authored": 15115,
+      "unknown_author_type": 0
+    },
+    "2024-12": {
+      "rows": 42424,
+      "linkable": 41978,
+      "linkable_pct": 98.94870827833302,
+      "bot_authored": 11520,
+      "unknown_author_type": 0
+    },
+    "2025-01": {
+      "rows": 80259,
+      "linkable": 76989,
+      "linkable_pct": 95.92569057675775,
+      "bot_authored": 23946,
+      "unknown_author_type": 0
+    },
+    "2025-02": {
+      "rows": 48165,
+      "linkable": 47505,
+      "linkable_pct": 98.62971037060106,
+      "bot_authored": 15228,
+      "unknown_author_type": 0
+    },
+    "2025-03": {
+      "rows": 48974,
+      "linkable": 48202,
+      "linkable_pct": 98.42365336709274,
+      "bot_authored": 14975,
+      "unknown_author_type": 0
+    },
+    "2025-04": {
+      "rows": 84893,
+      "linkable": 79247,
+      "linkable_pct": 93.3492749696677,
+      "bot_authored": 23901,
+      "unknown_author_type": 0
+    },
+    "2025-05": {
+      "rows": 79823,
+      "linkable": 73906,
+      "linkable_pct": 92.58734951079263,
+      "bot_authored": 19722,
+      "unknown_author_type": 0
+    },
+    "2025-06": {
+      "rows": 38537,
+      "linkable": 33881,
+      "linkable_pct": 87.91810467862055,
+      "bot_authored": 8724,
+      "unknown_author_type": 0
+    },
+    "2025-07": {
+      "rows": 57360,
+      "linkable": 44365,
+      "linkable_pct": 77.34483960948396,
+      "bot_authored": 15316,
+      "unknown_author_type": 0
+    },
+    "2025-08": {
+      "rows": 53139,
+      "linkable": 42366,
+      "linkable_pct": 79.72675436120363,
+      "bot_authored": 15801,
+      "unknown_author_type": 0
+    },
+    "2025-09": {
+      "rows": 50139,
+      "linkable": 32144,
+      "linkable_pct": 64.10977482598376,
+      "bot_authored": 13665,
+      "unknown_author_type": 0
+    }
+  },
+  "repos": 220261,
+  "contained": 345010,
+  "contained_ai": 826,
+  "contained_non_ai": 344184,
+  "reviewed_ai": 45,
+  "reviewed_non_ai": 48248,
+  "review_incidence": {
+    "outcome": "at least one qualifying pre-merge PullRequestReviewEvent from a non-author account whose GitHub type is not Bot",
+    "scope": "User-authored, linkable PRs created and merged in one sampled block",
+    "tagged_count": 826,
+    "tagged_reviewed": 45,
+    "tagged_rate_pct": 5.447941888619854,
+    "comparison_count": 344184,
+    "comparison_reviewed": 48248,
+    "comparison_rate_pct": 14.01808335076587,
+    "difference_pp": -8.570141462146015,
+    "newcombe_unclustered_ci_95_pp": [
+      -9.926833247283092,
+      -6.8021776800967135
+    ],
+    "pooled_z_unclustered": -7.090484099555421,
+    "pooled_p_unclustered": 1.3364367203203945e-12,
+    "repository_clustered": {
+      "method": "repository-clustered sandwich interval",
+      "repositories": 178049,
+      "difference_pp": -8.570141462146015,
+      "standard_error_pp": 0.9106502490179971,
+      "ci_95_pp": [
+        -10.355015950221288,
+        -6.785266974070741
+      ],
+      "z": -9.411013142957637,
+      "p": 4.913773544441782e-21
+    },
+    "repository_stratified": {
+      "method": "repository-stratified Mantel-Haenszel risk difference",
+      "repositories": 238,
+      "tagged_count": 311,
+      "tagged_reviewed": 29,
+      "tagged_retained_pct": 37.65133171912833,
+      "difference_pp": -6.4754684395665185,
+      "sato_standard_error_pp": 1.8577998464254064,
+      "sato_ci_95_pp": [
+        -10.116756138560316,
+        -2.8341807405727226
+      ],
+      "cmh_z": -3.5169742100071812,
+      "cmh_p": 0.00043649619051356784
+    },
+    "repository_covariate_stratified": {
+      "method": "repository-stratified Mantel-Haenszel risk difference",
+      "repositories": 121,
+      "tagged_count": 140,
+      "tagged_reviewed": 9,
+      "tagged_retained_pct": 16.949152542372882,
+      "difference_pp": -3.421700096133478,
+      "sato_standard_error_pp": 2.601154572572906,
+      "sato_ci_95_pp": [
+        -8.519963058376373,
+        1.6765628661094176
+      ],
+      "cmh_z": -1.3443321448446623,
+      "cmh_p": 0.1788410053304211
+    },
+    "standardized": {
+      "size": {
+        "columns": [
+          "size_band"
+        ],
+        "difference_pp": -6.782032427636146,
+        "repository_clustered_standard_error_pp": 0.8692410114073174,
+        "repository_clustered_ci_95_pp": [
+          -8.48574480999449,
+          -5.0783200452778035
+        ],
+        "z": -7.802246256945366,
+        "p": 6.081482508965256e-15,
+        "repositories": 178049,
+        "tagged_retained": 826,
+        "tagged_retained_pct": 100.0,
+        "dropped_tagged": 0,
+        "strata": [
+          {
+            "values": [
+              "large>300"
+            ],
+            "tagged_count": 372,
+            "tagged_reviewed": 9,
+            "comparison_count": 83719,
+            "comparison_reviewed": 7598,
+            "weight_pct": 45.036319612590795
+          },
+          {
+            "values": [
+              "medium51-300"
+            ],
+            "tagged_count": 253,
+            "tagged_reviewed": 16,
+            "comparison_count": 91632,
+            "comparison_reviewed": 12011,
+            "weight_pct": 30.629539951573847
+          },
+          {
+            "values": [
+              "small<=50"
+            ],
+            "tagged_count": 201,
+            "tagged_reviewed": 20,
+            "comparison_count": 168833,
+            "comparison_reviewed": 28639,
+            "weight_pct": 24.33414043583535
+          }
+        ]
+      },
+      "month": {
+        "columns": [
+          "month"
+        ],
+        "difference_pp": -3.813560682122632,
+        "repository_clustered_standard_error_pp": 0.857005225448202,
+        "repository_clustered_ci_95_pp": [
+          -5.4932909240011085,
+          -2.133830440244156
+        ],
+        "z": -4.449868645932925,
+        "p": 8.592282482805371e-06,
+        "repositories": 142331,
+        "tagged_retained": 826,
+        "tagged_retained_pct": 100.0,
+        "dropped_tagged": 0,
+        "strata": [
+          {
+            "values": [
+              "2024-12"
+            ],
+            "tagged_count": 2,
+            "tagged_reviewed": 0,
+            "comparison_count": 24331,
+            "comparison_reviewed": 2226,
+            "weight_pct": 0.24213075060532688
+          },
+          {
+            "values": [
+              "2025-01"
+            ],
+            "tagged_count": 3,
+            "tagged_reviewed": 1,
+            "comparison_count": 36994,
+            "comparison_reviewed": 7437,
+            "weight_pct": 0.36319612590799033
+          },
+          {
+            "values": [
+              "2025-02"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 1,
+            "comparison_count": 25673,
+            "comparison_reviewed": 2063,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "2025-03"
+            ],
+            "tagged_count": 9,
+            "tagged_reviewed": 0,
+            "comparison_count": 26753,
+            "comparison_reviewed": 2395,
+            "weight_pct": 1.0895883777239708
+          },
+          {
+            "values": [
+              "2025-04"
+            ],
+            "tagged_count": 48,
+            "tagged_reviewed": 6,
+            "comparison_count": 39374,
+            "comparison_reviewed": 7025,
+            "weight_pct": 5.811138014527845
+          },
+          {
+            "values": [
+              "2025-05"
+            ],
+            "tagged_count": 70,
+            "tagged_reviewed": 12,
+            "comparison_count": 39143,
+            "comparison_reviewed": 6860,
+            "weight_pct": 8.47457627118644
+          },
+          {
+            "values": [
+              "2025-06"
+            ],
+            "tagged_count": 153,
+            "tagged_reviewed": 1,
+            "comparison_count": 21394,
+            "comparison_reviewed": 902,
+            "weight_pct": 18.523002421307506
+          },
+          {
+            "values": [
+              "2025-07"
+            ],
+            "tagged_count": 194,
+            "tagged_reviewed": 10,
+            "comparison_count": 21183,
+            "comparison_reviewed": 2245,
+            "weight_pct": 23.486682808716708
+          },
+          {
+            "values": [
+              "2025-08"
+            ],
+            "tagged_count": 241,
+            "tagged_reviewed": 6,
+            "comparison_count": 19973,
+            "comparison_reviewed": 1601,
+            "weight_pct": 29.176755447941886
+          },
+          {
+            "values": [
+              "2025-09"
+            ],
+            "tagged_count": 105,
+            "tagged_reviewed": 8,
+            "comparison_count": 13531,
+            "comparison_reviewed": 988,
+            "weight_pct": 12.711864406779661
+          }
+        ]
+      },
+      "author_association": {
+        "columns": [
+          "association_group"
+        ],
+        "difference_pp": -3.4089633874228324,
+        "repository_clustered_standard_error_pp": 0.9062027728320182,
+        "repository_clustered_ci_95_pp": [
+          -5.185120822173587,
+          -1.6328059526720766
+        ],
+        "z": -3.761810810586372,
+        "p": 0.00016868762823844837,
+        "repositories": 178049,
+        "tagged_retained": 826,
+        "tagged_retained_pct": 100.0,
+        "dropped_tagged": 0,
+        "strata": [
+          {
+            "values": [
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 109,
+            "tagged_reviewed": 18,
+            "comparison_count": 64497,
+            "comparison_reviewed": 20637,
+            "weight_pct": 13.196125907990314
+          },
+          {
+            "values": [
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 126,
+            "tagged_reviewed": 21,
+            "comparison_count": 99735,
+            "comparison_reviewed": 21829,
+            "weight_pct": 15.254237288135593
+          },
+          {
+            "values": [
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 13,
+            "tagged_reviewed": 4,
+            "comparison_count": 15559,
+            "comparison_reviewed": 3591,
+            "weight_pct": 1.573849878934625
+          },
+          {
+            "values": [
+              "OWNER"
+            ],
+            "tagged_count": 578,
+            "tagged_reviewed": 2,
+            "comparison_count": 164393,
+            "comparison_reviewed": 2191,
+            "weight_pct": 69.97578692493947
+          }
+        ]
+      },
+      "joint": {
+        "columns": [
+          "size_band",
+          "month",
+          "association_group"
+        ],
+        "difference_pp": -0.7240148931696584,
+        "repository_clustered_standard_error_pp": 0.8254958439545758,
+        "repository_clustered_ci_95_pp": [
+          -2.3419867473206266,
+          0.8939569609813101
+        ],
+        "z": -0.8770666726815144,
+        "p": 0.3804504253616925,
+        "repositories": 102117,
+        "tagged_retained": 826,
+        "tagged_retained_pct": 100.0,
+        "dropped_tagged": 0,
+        "strata": [
+          {
+            "values": [
+              "large>300",
+              "2025-01",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 1380,
+            "comparison_reviewed": 420,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-03",
+              "OWNER"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 4351,
+            "comparison_reviewed": 79,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-04",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 4,
+            "tagged_reviewed": 1,
+            "comparison_count": 1428,
+            "comparison_reviewed": 384,
+            "weight_pct": 0.48426150121065376
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-04",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 5,
+            "tagged_reviewed": 1,
+            "comparison_count": 3260,
+            "comparison_reviewed": 531,
+            "weight_pct": 0.6053268765133172
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-04",
+              "OWNER"
+            ],
+            "tagged_count": 9,
+            "tagged_reviewed": 0,
+            "comparison_count": 4547,
+            "comparison_reviewed": 68,
+            "weight_pct": 1.0895883777239708
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-05",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 4,
+            "tagged_reviewed": 1,
+            "comparison_count": 1595,
+            "comparison_reviewed": 403,
+            "weight_pct": 0.48426150121065376
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-05",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 11,
+            "tagged_reviewed": 1,
+            "comparison_count": 3345,
+            "comparison_reviewed": 520,
+            "weight_pct": 1.331719128329298
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-05",
+              "OWNER"
+            ],
+            "tagged_count": 16,
+            "tagged_reviewed": 0,
+            "comparison_count": 4601,
+            "comparison_reviewed": 85,
+            "weight_pct": 1.937046004842615
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-06",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 3,
+            "tagged_reviewed": 0,
+            "comparison_count": 504,
+            "comparison_reviewed": 44,
+            "weight_pct": 0.36319612590799033
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-06",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 11,
+            "tagged_reviewed": 0,
+            "comparison_count": 1203,
+            "comparison_reviewed": 116,
+            "weight_pct": 1.331719128329298
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-06",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 127,
+            "comparison_reviewed": 14,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-06",
+              "OWNER"
+            ],
+            "tagged_count": 66,
+            "tagged_reviewed": 0,
+            "comparison_count": 3655,
+            "comparison_reviewed": 39,
+            "weight_pct": 7.990314769975787
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-07",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 8,
+            "tagged_reviewed": 0,
+            "comparison_count": 837,
+            "comparison_reviewed": 157,
+            "weight_pct": 0.9685230024213075
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-07",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 8,
+            "tagged_reviewed": 2,
+            "comparison_count": 1518,
+            "comparison_reviewed": 172,
+            "weight_pct": 0.9685230024213075
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-07",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 148,
+            "comparison_reviewed": 24,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-07",
+              "OWNER"
+            ],
+            "tagged_count": 65,
+            "tagged_reviewed": 0,
+            "comparison_count": 2608,
+            "comparison_reviewed": 20,
+            "weight_pct": 7.8692493946731235
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-08",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 8,
+            "tagged_reviewed": 0,
+            "comparison_count": 763,
+            "comparison_reviewed": 109,
+            "weight_pct": 0.9685230024213075
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-08",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 9,
+            "tagged_reviewed": 0,
+            "comparison_count": 1183,
+            "comparison_reviewed": 106,
+            "weight_pct": 1.0895883777239708
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-08",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 166,
+            "comparison_reviewed": 19,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-08",
+              "OWNER"
+            ],
+            "tagged_count": 96,
+            "tagged_reviewed": 0,
+            "comparison_count": 2767,
+            "comparison_reviewed": 8,
+            "weight_pct": 11.62227602905569
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-09",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 3,
+            "tagged_reviewed": 0,
+            "comparison_count": 529,
+            "comparison_reviewed": 76,
+            "weight_pct": 0.36319612590799033
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-09",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 5,
+            "tagged_reviewed": 0,
+            "comparison_count": 942,
+            "comparison_reviewed": 73,
+            "weight_pct": 0.6053268765133172
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-09",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 3,
+            "tagged_reviewed": 3,
+            "comparison_count": 122,
+            "comparison_reviewed": 5,
+            "weight_pct": 0.36319612590799033
+          },
+          {
+            "values": [
+              "large>300",
+              "2025-09",
+              "OWNER"
+            ],
+            "tagged_count": 33,
+            "tagged_reviewed": 0,
+            "comparison_count": 1656,
+            "comparison_reviewed": 5,
+            "weight_pct": 3.9951573849878934
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2024-12",
+              "OWNER"
+            ],
+            "tagged_count": 2,
+            "tagged_reviewed": 0,
+            "comparison_count": 3668,
+            "comparison_reviewed": 52,
+            "weight_pct": 0.24213075060532688
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-01",
+              "OWNER"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 4019,
+            "comparison_reviewed": 67,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-02",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 1,
+            "comparison_count": 950,
+            "comparison_reviewed": 179,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-03",
+              "OWNER"
+            ],
+            "tagged_count": 6,
+            "tagged_reviewed": 0,
+            "comparison_count": 3969,
+            "comparison_reviewed": 44,
+            "weight_pct": 0.7263922518159807
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-04",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 4,
+            "tagged_reviewed": 0,
+            "comparison_count": 2019,
+            "comparison_reviewed": 721,
+            "weight_pct": 0.48426150121065376
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-04",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 3,
+            "tagged_reviewed": 1,
+            "comparison_count": 3438,
+            "comparison_reviewed": 820,
+            "weight_pct": 0.36319612590799033
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-04",
+              "OWNER"
+            ],
+            "tagged_count": 10,
+            "tagged_reviewed": 0,
+            "comparison_count": 4307,
+            "comparison_reviewed": 89,
+            "weight_pct": 1.2106537530266344
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-05",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 6,
+            "tagged_reviewed": 3,
+            "comparison_count": 2046,
+            "comparison_reviewed": 762,
+            "weight_pct": 0.7263922518159807
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-05",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 4,
+            "tagged_reviewed": 2,
+            "comparison_count": 3512,
+            "comparison_reviewed": 800,
+            "weight_pct": 0.48426150121065376
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-05",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 2,
+            "tagged_reviewed": 0,
+            "comparison_count": 375,
+            "comparison_reviewed": 91,
+            "weight_pct": 0.24213075060532688
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-05",
+              "OWNER"
+            ],
+            "tagged_count": 10,
+            "tagged_reviewed": 0,
+            "comparison_count": 4106,
+            "comparison_reviewed": 75,
+            "weight_pct": 1.2106537530266344
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-06",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 5,
+            "tagged_reviewed": 0,
+            "comparison_count": 658,
+            "comparison_reviewed": 73,
+            "weight_pct": 0.6053268765133172
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-06",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 6,
+            "tagged_reviewed": 1,
+            "comparison_count": 1077,
+            "comparison_reviewed": 107,
+            "weight_pct": 0.7263922518159807
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-06",
+              "OWNER"
+            ],
+            "tagged_count": 37,
+            "tagged_reviewed": 0,
+            "comparison_count": 4448,
+            "comparison_reviewed": 23,
+            "weight_pct": 4.479418886198547
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-07",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 5,
+            "tagged_reviewed": 1,
+            "comparison_count": 1070,
+            "comparison_reviewed": 273,
+            "weight_pct": 0.6053268765133172
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-07",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 10,
+            "tagged_reviewed": 2,
+            "comparison_count": 1602,
+            "comparison_reviewed": 282,
+            "weight_pct": 1.2106537530266344
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-07",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 169,
+            "comparison_reviewed": 26,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-07",
+              "OWNER"
+            ],
+            "tagged_count": 44,
+            "tagged_reviewed": 2,
+            "comparison_count": 2785,
+            "comparison_reviewed": 22,
+            "weight_pct": 5.326876513317192
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-08",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 8,
+            "tagged_reviewed": 1,
+            "comparison_count": 864,
+            "comparison_reviewed": 167,
+            "weight_pct": 0.9685230024213075
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-08",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 7,
+            "tagged_reviewed": 0,
+            "comparison_count": 1219,
+            "comparison_reviewed": 172,
+            "weight_pct": 0.847457627118644
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-08",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 128,
+            "comparison_reviewed": 16,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-08",
+              "OWNER"
+            ],
+            "tagged_count": 46,
+            "tagged_reviewed": 0,
+            "comparison_count": 3407,
+            "comparison_reviewed": 15,
+            "weight_pct": 5.569007263922518
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-09",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 7,
+            "tagged_reviewed": 2,
+            "comparison_count": 614,
+            "comparison_reviewed": 116,
+            "weight_pct": 0.847457627118644
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-09",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 5,
+            "tagged_reviewed": 0,
+            "comparison_count": 903,
+            "comparison_reviewed": 120,
+            "weight_pct": 0.6053268765133172
+          },
+          {
+            "values": [
+              "medium51-300",
+              "2025-09",
+              "OWNER"
+            ],
+            "tagged_count": 22,
+            "tagged_reviewed": 0,
+            "comparison_count": 1957,
+            "comparison_reviewed": 9,
+            "weight_pct": 2.663438256658596
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-01",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 1,
+            "comparison_count": 4831,
+            "comparison_reviewed": 2222,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-03",
+              "OWNER"
+            ],
+            "tagged_count": 2,
+            "tagged_reviewed": 0,
+            "comparison_count": 7199,
+            "comparison_reviewed": 69,
+            "weight_pct": 0.24213075060532688
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-04",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 3,
+            "tagged_reviewed": 1,
+            "comparison_count": 4629,
+            "comparison_reviewed": 1929,
+            "weight_pct": 0.36319612590799033
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-04",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 4,
+            "tagged_reviewed": 2,
+            "comparison_count": 6490,
+            "comparison_reviewed": 1826,
+            "weight_pct": 0.48426150121065376
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-04",
+              "OWNER"
+            ],
+            "tagged_count": 6,
+            "tagged_reviewed": 0,
+            "comparison_count": 7204,
+            "comparison_reviewed": 147,
+            "weight_pct": 0.7263922518159807
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-05",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 4,
+            "tagged_reviewed": 2,
+            "comparison_count": 4775,
+            "comparison_reviewed": 1857,
+            "weight_pct": 0.48426150121065376
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-05",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 6,
+            "tagged_reviewed": 3,
+            "comparison_count": 6128,
+            "comparison_reviewed": 1801,
+            "weight_pct": 0.7263922518159807
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-05",
+              "OWNER"
+            ],
+            "tagged_count": 7,
+            "tagged_reviewed": 0,
+            "comparison_count": 7183,
+            "comparison_reviewed": 112,
+            "weight_pct": 0.847457627118644
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-06",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 5,
+            "tagged_reviewed": 0,
+            "comparison_count": 1107,
+            "comparison_reviewed": 155,
+            "weight_pct": 0.6053268765133172
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-06",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 3,
+            "tagged_reviewed": 0,
+            "comparison_count": 1578,
+            "comparison_reviewed": 248,
+            "weight_pct": 0.36319612590799033
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-06",
+              "OWNER"
+            ],
+            "tagged_count": 16,
+            "tagged_reviewed": 0,
+            "comparison_count": 6592,
+            "comparison_reviewed": 27,
+            "weight_pct": 1.937046004842615
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-07",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 12,
+            "tagged_reviewed": 2,
+            "comparison_count": 2239,
+            "comparison_reviewed": 574,
+            "weight_pct": 1.4527845036319613
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-07",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 12,
+            "tagged_reviewed": 1,
+            "comparison_count": 2905,
+            "comparison_reviewed": 573,
+            "weight_pct": 1.4527845036319613
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-07",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 1,
+            "tagged_reviewed": 0,
+            "comparison_count": 492,
+            "comparison_reviewed": 89,
+            "weight_pct": 0.12106537530266344
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-07",
+              "OWNER"
+            ],
+            "tagged_count": 27,
+            "tagged_reviewed": 0,
+            "comparison_count": 4810,
+            "comparison_reviewed": 33,
+            "weight_pct": 3.2687651331719128
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-08",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 10,
+            "tagged_reviewed": 1,
+            "comparison_count": 1836,
+            "comparison_reviewed": 462,
+            "weight_pct": 1.2106537530266344
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-08",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 10,
+            "tagged_reviewed": 3,
+            "comparison_count": 2218,
+            "comparison_reviewed": 432,
+            "weight_pct": 1.2106537530266344
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-08",
+              "OUTSIDER_OR_UNKNOWN"
+            ],
+            "tagged_count": 2,
+            "tagged_reviewed": 1,
+            "comparison_count": 410,
+            "comparison_reviewed": 69,
+            "weight_pct": 0.24213075060532688
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-08",
+              "OWNER"
+            ],
+            "tagged_count": 43,
+            "tagged_reviewed": 0,
+            "comparison_count": 5012,
+            "comparison_reviewed": 26,
+            "weight_pct": 5.205811138014528
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-09",
+              "CONTRIBUTOR"
+            ],
+            "tagged_count": 7,
+            "tagged_reviewed": 1,
+            "comparison_count": 1466,
+            "comparison_reviewed": 261,
+            "weight_pct": 0.847457627118644
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-09",
+              "MEMBER_OR_COLLABORATOR"
+            ],
+            "tagged_count": 7,
+            "tagged_reviewed": 2,
+            "comparison_count": 1784,
+            "comparison_reviewed": 251,
+            "weight_pct": 0.847457627118644
+          },
+          {
+            "values": [
+              "small<=50",
+              "2025-09",
+              "OWNER"
+            ],
+            "tagged_count": 13,
+            "tagged_reviewed": 0,
+            "comparison_count": 3062,
+            "comparison_reviewed": 7,
+            "weight_pct": 1.573849878934625
+          }
+        ]
+      }
+    },
+    "concentration": {
+      "tagged_repositories": 644,
+      "tagged_reviewed_repositories": 42,
+      "effective_tagged_clusters": 481.8333333333333,
+      "tagged_pr_share_pct": {
+        "top_1": 1.089588377723971,
+        "top_5": 3.6319612590799033,
+        "top_10": 6.416464891041162
+      },
+      "tagged_reviewed_share_pct": {
+        "top_1": 4.444444444444445,
+        "top_5": 17.77777777777778,
+        "top_10": 28.88888888888889
+      }
+    },
+    "leave_top_repositories_out": [
+      {
+        "scenario": "top_1",
+        "tagged_count": 817,
+        "difference_pp": -8.51012741441336,
+        "repository_clustered_ci_95_pp": [
+          -10.308577708666798,
+          -6.711677120159922
+        ],
+        "mantel_haenszel_difference_pp": -6.4754684395665185
+      },
+      {
+        "scenario": "top_2",
+        "tagged_count": 820,
+        "difference_pp": -8.530319201292732,
+        "repository_clustered_ci_95_pp": [
+          -10.32509338949806,
+          -6.735545013087406
+        ],
+        "mantel_haenszel_difference_pp": -6.506373254381903
+      },
+      {
+        "scenario": "top_3",
+        "tagged_count": 821,
+        "difference_pp": -8.536962766113007,
+        "repository_clustered_ci_95_pp": [
+          -10.330314371997568,
+          -6.743611160228447
+        ],
+        "mantel_haenszel_difference_pp": -6.4754684395665185
+      },
+      {
+        "scenario": "top_4",
+        "tagged_count": 821,
+        "difference_pp": -8.53700349468865,
+        "repository_clustered_ci_95_pp": [
+          -10.33035866434361,
+          -6.743648325033689
+        ],
+        "mantel_haenszel_difference_pp": -6.50551080452137
+      },
+      {
+        "scenario": "top_5",
+        "tagged_count": 821,
+        "difference_pp": -8.536962766113007,
+        "repository_clustered_ci_95_pp": [
+          -10.330314371997568,
+          -6.743611160228447
+        ],
+        "mantel_haenszel_difference_pp": -6.4754684395665185
+      },
+      {
+        "scenario": "top_5_together",
+        "tagged_count": 796,
+        "difference_pp": -8.364898476495537,
+        "repository_clustered_ci_95_pp": [
+          -10.19977475730824,
+          -6.530022195682831
+        ],
+        "mantel_haenszel_difference_pp": -6.536703735539508
+      }
+    ]
+  },
+  "bootstrap_resamples": 1000,
+  "paired_repository_bootstrap_resamples": 10000,
+  "seed": 0,
+  "within_repo_counts": {
+    "time_to_merge_h": 2,
+    "review_latency_h": 0,
+    "review_rounds": 1,
+    "comments": 2
+  },
+  "metric_results": [
+    {
+      "metric": "time_to_merge_h",
+      "n_ai": 1113,
+      "n_non_ai": 464070,
+      "median_ai": 0.308,
+      "median_non_ai": 0.066,
+      "cliffs_delta": 0.20960089420162342,
+      "ci_95": [
+        0.184,
+        0.232
+      ],
+      "p": 8.751239821225133e-34,
+      "p_adjusted": 1.1668319761633511e-33,
+      "effect": "small"
+    },
+    {
+      "metric": "review_latency_h",
+      "n_ai": 45,
+      "n_non_ai": 48248,
+      "median_ai": 0.373,
+      "median_non_ai": 0.233,
+      "cliffs_delta": 0.18992750419130777,
+      "ci_95": [
+        0.057,
+        0.321
+      ],
+      "p": 0.027403253172290823,
+      "p_adjusted": 0.027403253172290823,
+      "effect": "small"
+    },
+    {
+      "metric": "review_rounds",
+      "n_ai": 826,
+      "n_non_ai": 344184,
+      "median_ai": 0.0,
+      "median_non_ai": 0.0,
+      "cliffs_delta": -0.08550558350483062,
+      "ci_95": [
+        -0.101,
+        -0.071
+      ],
+      "p": 1.6326114112424486e-12,
+      "p_adjusted": 1.8658416128485126e-12,
+      "effect": "negligible"
+    },
+    {
+      "metric": "commits",
+      "n_ai": 1113,
+      "n_non_ai": 464070,
+      "median_ai": 3.0,
+      "median_non_ai": 1.0,
+      "cliffs_delta": 0.33711268966746455,
+      "ci_95": [
+        0.308,
+        0.369
+      ],
+      "p": 8.58422671605786e-100,
+      "p_adjusted": 3.433690686423144e-99,
+      "effect": "medium"
+    },
+    {
+      "metric": "pr_size",
+      "n_ai": 1113,
+      "n_non_ai": 464070,
+      "median_ai": 292.0,
+      "median_non_ai": 62.0,
+      "cliffs_delta": 0.35970595801346783,
+      "ci_95": [
+        0.331,
+        0.387
+      ],
+      "p": 8.972609170709441e-96,
+      "p_adjusted": 2.392695778855851e-95,
+      "effect": "medium"
+    },
+    {
+      "metric": "files_changed",
+      "n_ai": 1113,
+      "n_non_ai": 464070,
+      "median_ai": 6.0,
+      "median_non_ai": 3.0,
+      "cliffs_delta": 0.23628561163521522,
+      "ci_95": [
+        0.204,
+        0.265
+      ],
+      "p": 1.1454125711324981e-43,
+      "p_adjusted": 1.832660113811997e-43,
+      "effect": "small"
+    },
+    {
+      "metric": "comments",
+      "n_ai": 1113,
+      "n_non_ai": 464070,
+      "median_ai": 0.0,
+      "median_non_ai": 0.0,
+      "cliffs_delta": 0.2082360278431057,
+      "ci_95": [
+        0.178,
+        0.239
+      ],
+      "p": 4.0314065409959473e-56,
+      "p_adjusted": 8.062813081991895e-56,
+      "effect": "small"
+    },
+    {
+      "metric": "review_comments",
+      "n_ai": 1113,
+      "n_non_ai": 464070,
+      "median_ai": 0.0,
+      "median_non_ai": 0.0,
+      "cliffs_delta": 0.3463630426761801,
+      "ci_95": [
+        0.319,
+        0.377
+      ],
+      "p": 0.0,
+      "p_adjusted": 0.0,
+      "effect": "medium"
+    }
+  ],
+  "paired_repository": {
+    "time_to_merge_h": {
+      "repositories": 381,
+      "median_difference": 0.045,
+      "ci_95": [
+        0.009000000000000008,
+        0.087
+      ],
+      "higher": 221,
+      "lower": 155,
+      "ties_excluded": 5,
+      "exact_sign_p": 0.0007799697295312508,
+      "bootstrap_resamples": 10000,
+      "seed": 100
+    },
+    "review_latency_h": {
+      "repositories": 25,
+      "median_difference": 0.005499999999999991,
+      "ci_95": [
+        -0.259,
+        0.419
+      ],
+      "higher": 13,
+      "lower": 12,
+      "ties_excluded": 0,
+      "exact_sign_p": 1.0,
+      "bootstrap_resamples": 10000,
+      "seed": 101
+    },
+    "review_rounds": {
+      "repositories": 238,
+      "median_difference": 0.0,
+      "ci_95": [
+        0.0,
+        0.0
+      ],
+      "higher": 12,
+      "lower": 27,
+      "ties_excluded": 199,
+      "exact_sign_p": 0.023702702470473014,
+      "bootstrap_resamples": 10000,
+      "seed": 102
+    },
+    "commits": {
+      "repositories": 381,
+      "median_difference": 1.0,
+      "ci_95": [
+        1.0,
+        1.0
+      ],
+      "higher": 236,
+      "lower": 80,
+      "ties_excluded": 65,
+      "exact_sign_p": 5.146682071412859e-19,
+      "bootstrap_resamples": 10000,
+      "seed": 103
+    },
+    "pr_size": {
+      "repositories": 381,
+      "median_difference": 37.0,
+      "ci_95": [
+        14.0,
+        79.0
+      ],
+      "higher": 222,
+      "lower": 157,
+      "ties_excluded": 2,
+      "exact_sign_p": 0.0009855427523596492,
+      "bootstrap_resamples": 10000,
+      "seed": 104
+    },
+    "files_changed": {
+      "repositories": 381,
+      "median_difference": 0.5,
+      "ci_95": [
+        0.0,
+        1.0
+      ],
+      "higher": 193,
+      "lower": 143,
+      "ties_excluded": 45,
+      "exact_sign_p": 0.007422389087167496,
+      "bootstrap_resamples": 10000,
+      "seed": 105
+    },
+    "comments": {
+      "repositories": 381,
+      "median_difference": 0.0,
+      "ci_95": [
+        0.0,
+        0.0
+      ],
+      "higher": 89,
+      "lower": 52,
+      "ties_excluded": 240,
+      "exact_sign_p": 0.0023131070595483407,
+      "bootstrap_resamples": 10000,
+      "seed": 106
+    },
+    "review_comments": {
+      "repositories": 381,
+      "median_difference": 0.5,
+      "ci_95": [
+        0.0,
+        1.0
+      ],
+      "higher": 195,
+      "lower": 45,
+      "ties_excluded": 141,
+      "exact_sign_p": 1.9232053608561844e-23,
+      "bootstrap_resamples": 10000,
+      "seed": 107
+    }
+  },
+  "monthly_ai": {
+    "2024-10": 0,
+    "2024-11": 2,
+    "2024-12": 4,
+    "2025-01": 6,
+    "2025-02": 2,
+    "2025-03": 12,
+    "2025-04": 71,
+    "2025-05": 106,
+    "2025-06": 184,
+    "2025-07": 258,
+    "2025-08": 310,
+    "2025-09": 158
+  },
+  "collector_manifest": {
+    "path": "gha_prs.csv.manifest.json",
+    "requested_hours": 156,
+    "completed_hours": 156,
+    "csv_bytes": 90923695,
+    "csv_sha256": "85b2e73df0c9f930dfd7024e6482277a0ae41cba6d7bae5bf0617b2394bf9f27"
+  }
 }
